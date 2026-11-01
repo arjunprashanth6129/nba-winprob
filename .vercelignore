@@ -1,0 +1,9 @@
+.venv
+.vercel
+scripts
+data/pbp
+data/*.parquet
+data/*.log
+models/*.pt
+**/__pycache__
+.DS_Store

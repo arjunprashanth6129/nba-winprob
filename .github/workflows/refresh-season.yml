@@ -1,0 +1,27 @@
+# Daily: score last night's games for the Track record tab and commit the cache.
+# The push redeploys the site (Vercel builds every push to main).
+name: Refresh season record
+on:
+  schedule:
+    - cron: "0 11 * * *"  # 11:00 UTC, after the night's games in the US
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python scripts/season_report.py
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet models/season_games.json; then echo "no new games"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -am "Refresh season record"
+          git push

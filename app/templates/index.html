@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Courtside Win Probability</title>
+  <meta name="description" content="A neural network that estimates every NBA team's chance of winning after every play, live.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='14' fill='%23d95926'/><path d='M2 16h28M16 2v28M6 6c6 6 6 14 0 20M26 6c-6 6-6 14 0 20' stroke='%231a1a19' stroke-width='2' fill='none'/></svg>">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="var(--away)"/><path d="M2 16h28M16 2v28M6 6c6 6 6 14 0 20M26 6c-6 6-6 14 0 20" stroke="var(--surface-1)" stroke-width="2" fill="none"/></svg>
+      <span>Courtside</span><span class="brand-sub">NBA win probability</span>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" class="tab active" data-view="games" aria-selected="true">Games</button>
+      <button role="tab" class="tab" data-view="record" aria-selected="false">Track record</button>
+      <button role="tab" class="tab" data-view="model" aria-selected="false">The model</button>
+    </nav>
+    <div class="topbar-right">
+      <span id="conn" class="conn" title="Live connection"><i></i><span>Connecting</span></span>
+      <a class="icon-btn" href="https://github.com/arjunprashanth6129/nba-winprob" target="_blank" rel="noopener" aria-label="Source code on GitHub" title="Source on GitHub">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      </a>
+      <button id="theme" class="icon-btn" aria-label="Toggle light/dark theme">
+        <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" fill="currentColor"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===================== GAMES ===================== -->
+  <main id="view-games" class="view">
+    <aside class="sidebar">
+      <div class="datebar">
+        <button class="icon-btn" id="prev-day" aria-label="Previous day">‹</button>
+        <input type="date" id="date" aria-label="Date">
+        <button class="icon-btn" id="next-day" aria-label="Next day">›</button>
+      </div>
+      <div class="presets">
+        <button data-offset="-1">Yesterday</button>
+        <button data-offset="0" class="on">Today</button>
+        <button data-offset="1">Tomorrow</button>
+      </div>
+      <div id="day-summary" class="day-summary" hidden></div>
+      <div id="games" class="game-list" aria-live="polite"></div>
+    </aside>
+
+    <section class="stage" id="stage">
+      <div class="empty" id="empty">
+        <h2>Pick a game</h2>
+        <p>Every play changes each team's chance of winning. Choose a game to watch the model update play by play.</p>
+        <p class="muted">Live games stream automatically. Finished games can be replayed. Upcoming games show the pre-game estimate.</p>
+      </div>
+
+      <div id="game" hidden>
+        <div class="scorehead">
+          <div class="team away">
+            <div class="logo" data-side="away"></div>
+            <div class="tmeta"><div class="tname" id="away-name"></div><div class="trec" id="away-rec"></div></div>
+            <div class="tscore" id="away-score">0</div>
+          </div>
+          <div class="center">
+            <div id="status" class="status"></div>
+            <div id="series" class="muted small"></div>
+          </div>
+          <div class="team home">
+            <div class="tscore" id="home-score">0</div>
+            <div class="tmeta"><div class="tname" id="home-name"></div><div class="trec" id="home-rec"></div></div>
+            <div class="logo" data-side="home"></div>
+          </div>
+        </div>
+
+        <div class="probrow">
+          <div class="prob away"><span class="key"></span><span id="away-tri"></span><strong id="away-prob">–</strong><em id="away-delta"></em></div>
+          <div class="probbar" aria-hidden="true"><div id="bar-away"></div><div id="bar-home"></div></div>
+          <div class="prob home"><em id="home-delta"></em><strong id="home-prob">–</strong><span id="home-tri"></span><span class="key"></span></div>
+        </div>
+        <p class="headline" id="headline"></p>
+
+        <div class="card chart-card">
+          <div class="card-head">
+            <h2>Win probability</h2>
+            <div class="controls" id="controls">
+              <div class="seg" id="mode">
+                <button data-mode="live" class="on">Live</button>
+                <button data-mode="replay">Replay</button>
+              </div>
+              <div class="replay-ctl" id="replay-ctl" hidden>
+                <button id="play" class="icon-btn" aria-label="Play/pause">❚❚</button>
+                <button id="restart" class="icon-btn" aria-label="Restart replay">↺</button>
+                <select id="speed" aria-label="Replay speed">
+                  <option value="30">30×</option><option value="60" selected>60×</option>
+                  <option value="120">120×</option><option value="300">300×</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div id="wp-chart" class="wp-chart"></div>
+          <div class="legend" id="wp-legend"></div>
+          <p class="help">The line is the model's probability that the team on top wins, recalculated after every play. Shading shows who is favoured. Numbered circles mark the biggest swings, listed below. Hover for the play behind any point.</p>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <div class="card-head"><h2>Why this number</h2><span class="muted small" id="why-at"></span></div>
+            <div id="why"></div>
+            <p class="help">Starting from 50/50, each row adds one group of the model's inputs and shows how far it moves the probability. Together they add up to the model's estimate.</p>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Game flow</h2></div>
+            <div class="flow" id="flow"></div>
+          </div>
+        </div>
+
+        <div class="card" id="calls-card">
+          <div class="card-head"><h2>How the model called it</h2><span class="muted small">favourite at each point of the game</span></div>
+          <div class="calls" id="calls"></div>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <div class="card-head"><h2>Biggest swings</h2></div>
+            <ol id="swings" class="plays"></ol>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Play-by-play</h2><span class="muted small" id="play-count"></span></div>
+            <ol id="feed" class="plays feed"></ol>
+          </div>
+        </div>
+
+        <div class="card pregame">
+          <div class="card-head"><h2>Pre-game prior</h2><span class="muted small">Elo team ratings before tip-off</span></div>
+          <div class="tiles" id="pregame"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== TRACK RECORD ===================== -->
+  <main id="view-record" class="view page" hidden>
+    <div class="page-wrap">
+      <div class="intro">
+        <h1>Track record <span class="muted" id="rec-season"></span></h1>
+        <p class="lede">Every finished game this season, scored after the fact. None of them was used to train or tune the model, so this is how it performs on games it has never seen. Updated as games finish.</p>
+      </div>
+      <div id="rec-loading" class="loading-msg">Scoring this season's games…</div>
+      <div id="rec-body" hidden>
+        <div class="tiles big" id="rec-tiles"></div>
+
+        <div class="card">
+          <div class="card-head"><h2>Pre-game picks, running accuracy</h2><span class="muted small">share of games where the model's favourite won</span></div>
+          <div id="ch-cum" class="mchart"></div>
+          <div class="legend" id="lg-cum"></div>
+        </div>
+
+        <div class="grid2">
+          <div class="card">
+            <div class="card-head"><h2>Calls by stage of the game</h2><span class="muted small">this season vs. last season's test</span></div>
+            <div id="ch-calls" class="mchart"></div>
+            <div class="legend" id="lg-calls"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Calibration this season</h2><span class="muted small">every in-game state</span></div>
+            <div id="ch-rcal" class="mchart"></div>
+            <p class="help">Dots on the dashed line mean the stated probabilities are honest: games called at 70% are won about 70% of the time. Small samples early in the season scatter around it.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="card"><div class="card-head"><h2>Biggest upsets</h2></div><p class="help top">Winners the model gave the lowest pre-game chance.</p><ol class="hl" id="hl-upsets"></ol></div>
+          <div class="card"><div class="card-head"><h2>Biggest comebacks</h2></div><p class="help top">Lowest in-game chance the eventual winner fell to.</p><ol class="hl" id="hl-comebacks"></ol></div>
+          <div class="card"><div class="card-head"><h2>Most dramatic</h2></div><p class="help top">Most total win-probability movement over the game.</p><ol class="hl" id="hl-thrillers"></ol></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>Team strength right now</h2><span class="muted small">Elo ratings · points better or worse than an average team on a neutral court</span></div>
+          <div id="ratings" class="ratings"></div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><h2>Recent games</h2><span class="muted small">click a game to open it</span></div>
+          <div class="table-wrap"><table id="rec-games"></table></div>
+          <button class="more-btn" id="rec-more" hidden></button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===================== MODEL ===================== -->
+  <main id="view-model" class="view page" hidden>
+    <div class="page-wrap">
+      <div class="intro">
+        <h1>How the model works</h1>
+        <p class="lede" id="model-blurb"></p>
+      </div>
+      <div class="tiles big" id="model-tiles"></div>
+      <nav class="subnav" id="subnav">
+        <a href="#m-pipeline">Pipeline</a><a href="#m-network">Network</a><a href="#m-inputs">Inputs</a>
+        <a href="#m-try">Try it</a><a href="#m-learned">What it learned</a><a href="#m-ability">Predictive ability</a>
+        <a href="#m-calibration">Calibration</a><a href="#m-training">Training</a><a href="#m-limits">Limits</a>
+      </nav>
+
+      <section id="m-pipeline" class="msec">
+        <h2 class="sec">From play-by-play to probability</h2>
+        <div class="pipeline" id="pipeline"></div>
+      </section>
+
+      <section id="m-network" class="msec">
+        <h2 class="sec">The network</h2>
+        <div class="grid2 wide-left">
+          <div class="card">
+            <div class="card-head"><h2>Architecture</h2><span class="muted small" id="arch-sub"></span></div>
+            <div id="arch" class="arch"></div>
+            <p class="help">Each layer takes a weighted sum of the previous layer's outputs and passes it through SiLU, a smooth non-linear function. The last layer squashes a single number into a probability with a sigmoid. Stacking non-linear layers lets the network learn interactions, like possession mattering more when the game is close and late.</p>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Training setup</h2></div>
+            <dl class="kv" id="train-setup"></dl>
+          </div>
+        </div>
+      </section>
+
+      <section id="m-inputs" class="msec">
+        <h2 class="sec">What it looks at</h2>
+        <div class="grid2 wide-left">
+          <div class="card">
+            <div class="card-head"><h2>The 10 inputs</h2><span class="muted small">recomputed after every play</span></div>
+            <div class="table-wrap"><table id="features" class="wrap"></table></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Which inputs matter</h2>
+              <div class="seg" id="imp-seg"><button data-k="importance" class="on">Whole game</button><button data-k="importance_crunch">Crunch time</button></div>
+            </div>
+            <div id="importance"></div>
+            <p class="help" id="imp-help"></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="m-try" class="msec">
+        <h2 class="sec">Try it: build a game situation</h2>
+        <div class="card try">
+          <div class="try-grid">
+            <div class="try-controls" id="try-controls"></div>
+            <div class="try-out">
+              <div class="try-prob"><div class="k">Home team wins</div><div class="v" id="try-p">–</div><div class="probbar"><div id="try-bar-away"></div><div id="try-bar-home"></div></div></div>
+              <div id="try-why"></div>
+            </div>
+          </div>
+          <div class="grid2 inner">
+            <div>
+              <div class="card-head"><h2>Every lead at this moment</h2></div>
+              <div id="try-curve" class="mchart short"></div>
+            </div>
+            <div>
+              <div class="card-head"><h2>Every lead, every minute</h2><span class="muted small">click a cell to load it</span></div>
+              <div id="try-heat" class="mchart short"></div>
+              <div class="grad-legend"><span>Away favoured</span><i id="grad"></i><span>Home favoured</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="m-learned" class="msec">
+        <h2 class="sec">What it learned</h2>
+        <div class="grid2">
+          <div class="card"><div class="card-head"><h2>A lead is worth more as time runs out</h2></div><div id="ch-lead" class="mchart"></div><div class="legend" id="lg-lead"></div>
+            <p class="help">Home win probability by lead, for evenly matched teams with the home team in possession.</p></div>
+          <div class="card"><div class="card-head"><h2>Value of having the ball</h2><span class="muted small">tied game, 4th quarter</span></div><div id="ch-poss" class="mchart"></div>
+            <p class="help" id="poss-help"></p></div>
+          <div class="card"><div class="card-head"><h2>The pre-game favourite fades</h2><span class="muted small">tied game, home team favoured by…</span></div><div id="ch-fade" class="mchart"></div><div class="legend" id="lg-fade"></div>
+            <p class="help" id="fade-help"></p></div>
+          <div class="card"><div class="card-head"><h2>Home court has shrunk</h2><span class="muted small">home team win rate by season</span></div><div id="ch-home" class="mchart"></div>
+            <p class="help" id="home-help"></p></div>
+        </div>
+      </section>
+
+      <section id="m-ability" class="msec">
+        <h2 class="sec">Predictive ability <span class="muted" id="test-label"></span></h2>
+        <div class="card">
+          <div class="card-head"><h2>Held-out test season</h2><span class="muted small">lower log loss and Brier are better</span></div>
+          <div class="table-wrap"><table id="cmp"></table></div>
+          <p class="help">Log loss heavily punishes confident wrong calls. Brier is the mean squared error of the probability. AUC is how well it ranks winners above losers. Accuracy counts how often the favourite won, at every play of every game.</p>
+        </div>
+        <div class="grid2">
+          <div class="card"><div class="card-head"><h2>Error through the game</h2><span class="muted small">log loss by minute</span></div><div id="ch-llmin" class="mchart"></div><div class="legend" id="lg-llmin"></div>
+            <p class="help">Pre-game Elo can't react to the score, so its error stays flat. The network's error falls steadily as the outcome becomes clearer. The network and logistic regression lines almost overlap: their gap is in crunch time (below). Error jumps in overtime, which restarts as a near coin flip.</p></div>
+          <div class="card"><div class="card-head"><h2>Calling the winner</h2><span class="muted small">one call per game</span></div><div id="ch-calls-test" class="mchart"></div><div class="legend" id="lg-calls-test"></div></div>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <div class="card-head"><h2>When it's confident, is it right?</h2></div>
+            <div class="table-wrap"><table id="conf"></table></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Comebacks happen</h2></div>
+            <div class="table-wrap"><table id="comebacks"></table></div>
+            <p class="help" id="comeback-help"></p>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="card">
+            <div class="card-head"><h2>Crunch time</h2><span class="muted small">where the network beats the linear baseline</span></div>
+            <div class="table-wrap"><table id="clutch"></table></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>By quarter</h2></div>
+            <div class="table-wrap"><table id="phase"></table></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="m-calibration" class="msec">
+        <h2 class="sec">Calibration</h2>
+        <div class="grid2">
+          <div class="card"><div class="card-head"><h2>Predicted vs. actual</h2><span class="muted small" id="ece-label"></span></div><div id="ch-calib" class="mchart"></div></div>
+          <div class="card"><div class="card-head"><h2>How often it says each probability</h2></div><div id="ch-hist" class="mchart"></div>
+            <p class="help">Most states sit between 20% and 80%. The spikes at the ends are late, decided games.</p></div>
+        </div>
+      </section>
+
+      <section id="m-training" class="msec">
+        <h2 class="sec">Training</h2>
+        <div class="grid2">
+          <div class="card"><div class="card-head"><h2>Loss per epoch</h2><span class="muted small">binary cross-entropy</span></div><div id="ch-loss" class="mchart"></div><div class="legend" id="lg-loss"></div>
+            <p class="help">Training stopped after the validation loss failed to improve for 4 epochs, and the best epoch's weights were kept.</p></div>
+          <div class="card"><div class="card-head"><h2>Every season</h2><span class="muted small">train, validation, test and live</span></div>
+            <div class="table-wrap"><table id="seasons"></table></div>
+            <p class="help">Similar error on seasons it trained on and seasons it didn't means it isn't memorising. The live season is still early.</p></div>
+        </div>
+      </section>
+
+      <section id="m-limits" class="msec">
+        <h2 class="sec">Limits</h2>
+        <div class="card">
+          <ul class="limits">
+            <li><b>No player information.</b> Injuries, rest days and who is on the floor aren't modelled. A star sitting out shows up only once it changes the score.</li>
+            <li><b>Team strength is Elo only.</b> Ratings learn from results alone, so they're slow to react to trades and early-season changes. Betting lines would sharpen pre-game estimates.</li>
+            <li><b>The network ties logistic regression overall.</b> The engineered inputs (lead ÷ √time) already make most game states nearly linear. Its edge is in close, late-game situations.</li>
+            <li><b>Missing data.</b> About 260 games from 2019-20 have no play-by-play in the NBA's feed and are skipped.</li>
+            <li><b>Updates every 5 seconds.</b> On the hosted site updates arrive by polling. Running locally uses a WebSocket that pushes each play as it's scored.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="tip" class="tip" role="tooltip" hidden></div>
+  <script src="{{ url_for('static', filename='ui.js') }}"></script>
+  <script src="{{ url_for('static', filename='charts.js') }}"></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <script src="{{ url_for('static', filename='record.js') }}"></script>
+  <script src="{{ url_for('static', filename='model.js') }}"></script>
+</body>
+</html>

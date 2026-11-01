@@ -1,0 +1,6 @@
+# Serving: what the dashboard needs (and all Vercel installs).
+nba_api>=1.12
+pandas>=2.2
+numpy>=2.0
+flask>=3.0
+flask-sock>=0.7

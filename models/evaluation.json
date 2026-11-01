@@ -1,0 +1,1236 @@
+{
+ "test_season": "2025-26",
+ "n_params": 11777,
+ "states_scored": 531064,
+ "games_scored": 1315,
+ "skill": {
+  "base_rate": 0.5541,
+  "brier_coin_flip": 0.25,
+  "brier_home_rate": 0.2469,
+  "brier_skill_vs_home_rate": 0.4044,
+  "brier_skill_vs_elo": 0.2904
+ },
+ "ece": 0.011,
+ "calibration_fine": [
+  {
+   "lo": 0.0,
+   "hi": 0.05,
+   "pred": 0.0135,
+   "actual": 0.0099,
+   "n": 43583
+  },
+  {
+   "lo": 0.05,
+   "hi": 0.1,
+   "pred": 0.0742,
+   "actual": 0.0618,
+   "n": 17374
+  },
+  {
+   "lo": 0.1,
+   "hi": 0.15,
+   "pred": 0.1257,
+   "actual": 0.1248,
+   "n": 16453
+  },
+  {
+   "lo": 0.15,
+   "hi": 0.2,
+   "pred": 0.1759,
+   "actual": 0.1729,
+   "n": 18270
+  },
+  {
+   "lo": 0.2,
+   "hi": 0.25,
+   "pred": 0.2256,
+   "actual": 0.2108,
+   "n": 20810
+  },
+  {
+   "lo": 0.25,
+   "hi": 0.3,
+   "pred": 0.2752,
+   "actual": 0.2775,
+   "n": 22029
+  },
+  {
+   "lo": 0.3,
+   "hi": 0.35,
+   "pred": 0.3253,
+   "actual": 0.3341,
+   "n": 22053
+  },
+  {
+   "lo": 0.35,
+   "hi": 0.4,
+   "pred": 0.3754,
+   "actual": 0.3978,
+   "n": 22537
+  },
+  {
+   "lo": 0.4,
+   "hi": 0.45,
+   "pred": 0.4252,
+   "actual": 0.4577,
+   "n": 22130
+  },
+  {
+   "lo": 0.45,
+   "hi": 0.5,
+   "pred": 0.4752,
+   "actual": 0.4879,
+   "n": 23046
+  },
+  {
+   "lo": 0.5,
+   "hi": 0.55,
+   "pred": 0.5252,
+   "actual": 0.546,
+   "n": 24468
+  },
+  {
+   "lo": 0.55,
+   "hi": 0.6,
+   "pred": 0.575,
+   "actual": 0.5907,
+   "n": 25289
+  },
+  {
+   "lo": 0.6,
+   "hi": 0.65,
+   "pred": 0.6253,
+   "actual": 0.6497,
+   "n": 25963
+  },
+  {
+   "lo": 0.65,
+   "hi": 0.7,
+   "pred": 0.6751,
+   "actual": 0.701,
+   "n": 26789
+  },
+  {
+   "lo": 0.7,
+   "hi": 0.75,
+   "pred": 0.7252,
+   "actual": 0.7297,
+   "n": 28623
+  },
+  {
+   "lo": 0.75,
+   "hi": 0.8,
+   "pred": 0.7749,
+   "actual": 0.7749,
+   "n": 29717
+  },
+  {
+   "lo": 0.8,
+   "hi": 0.85,
+   "pred": 0.8245,
+   "actual": 0.829,
+   "n": 27177
+  },
+  {
+   "lo": 0.85,
+   "hi": 0.9,
+   "pred": 0.8747,
+   "actual": 0.8908,
+   "n": 25080
+  },
+  {
+   "lo": 0.9,
+   "hi": 0.95,
+   "pred": 0.9253,
+   "actual": 0.9378,
+   "n": 23324
+  },
+  {
+   "lo": 0.95,
+   "hi": 1.0,
+   "pred": 0.9878,
+   "actual": 0.9904,
+   "n": 66349
+  }
+ ],
+ "confidence": [
+  {
+   "lo": 0.5,
+   "hi": 0.6,
+   "share": 0.1788,
+   "said": 0.55,
+   "won": 0.5488,
+   "n": 94933
+  },
+  {
+   "lo": 0.6,
+   "hi": 0.7,
+   "share": 0.1833,
+   "said": 0.65,
+   "won": 0.6565,
+   "n": 97342
+  },
+  {
+   "lo": 0.7,
+   "hi": 0.8,
+   "share": 0.1905,
+   "said": 0.7499,
+   "won": 0.7537,
+   "n": 101179
+  },
+  {
+   "lo": 0.8,
+   "hi": 0.9,
+   "share": 0.1638,
+   "said": 0.8483,
+   "won": 0.8552,
+   "n": 86980
+  },
+  {
+   "lo": 0.9,
+   "hi": 0.95,
+   "share": 0.0766,
+   "said": 0.9255,
+   "won": 0.938,
+   "n": 40698
+  },
+  {
+   "lo": 0.95,
+   "hi": 0.99,
+   "share": 0.0858,
+   "said": 0.9725,
+   "won": 0.9782,
+   "n": 45539
+  },
+  {
+   "lo": 0.99,
+   "hi": 1.0,
+   "share": 0.1213,
+   "said": 0.9977,
+   "won": 0.9988,
+   "n": 64393
+  }
+ ],
+ "by_minute": [
+  {
+   "minute": 0,
+   "n": 10183,
+   "neural_net": 0.6009,
+   "logistic_regression": 0.5991,
+   "elo_pregame_only": 0.6002
+  },
+  {
+   "minute": 1,
+   "n": 10301,
+   "neural_net": 0.5994,
+   "logistic_regression": 0.5974,
+   "elo_pregame_only": 0.5985
+  },
+  {
+   "minute": 2,
+   "n": 10630,
+   "neural_net": 0.6016,
+   "logistic_regression": 0.5997,
+   "elo_pregame_only": 0.6015
+  },
+  {
+   "minute": 3,
+   "n": 10909,
+   "neural_net": 0.5949,
+   "logistic_regression": 0.5929,
+   "elo_pregame_only": 0.5988
+  },
+  {
+   "minute": 4,
+   "n": 10909,
+   "neural_net": 0.5916,
+   "logistic_regression": 0.5902,
+   "elo_pregame_only": 0.5987
+  },
+  {
+   "minute": 5,
+   "n": 11023,
+   "neural_net": 0.5851,
+   "logistic_regression": 0.5833,
+   "elo_pregame_only": 0.6003
+  },
+  {
+   "minute": 6,
+   "n": 10743,
+   "neural_net": 0.5799,
+   "logistic_regression": 0.5782,
+   "elo_pregame_only": 0.6007
+  },
+  {
+   "minute": 7,
+   "n": 10921,
+   "neural_net": 0.5709,
+   "logistic_regression": 0.5698,
+   "elo_pregame_only": 0.5973
+  },
+  {
+   "minute": 8,
+   "n": 10984,
+   "neural_net": 0.5717,
+   "logistic_regression": 0.5707,
+   "elo_pregame_only": 0.5989
+  },
+  {
+   "minute": 9,
+   "n": 11063,
+   "neural_net": 0.5701,
+   "logistic_regression": 0.57,
+   "elo_pregame_only": 0.6021
+  },
+  {
+   "minute": 10,
+   "n": 10883,
+   "neural_net": 0.5596,
+   "logistic_regression": 0.5596,
+   "elo_pregame_only": 0.6003
+  },
+  {
+   "minute": 11,
+   "n": 12440,
+   "neural_net": 0.5549,
+   "logistic_regression": 0.5544,
+   "elo_pregame_only": 0.5999
+  },
+  {
+   "minute": 12,
+   "n": 10434,
+   "neural_net": 0.5603,
+   "logistic_regression": 0.5593,
+   "elo_pregame_only": 0.6036
+  },
+  {
+   "minute": 13,
+   "n": 10592,
+   "neural_net": 0.5461,
+   "logistic_regression": 0.5455,
+   "elo_pregame_only": 0.5981
+  },
+  {
+   "minute": 14,
+   "n": 11099,
+   "neural_net": 0.5399,
+   "logistic_regression": 0.5399,
+   "elo_pregame_only": 0.6004
+  },
+  {
+   "minute": 15,
+   "n": 10891,
+   "neural_net": 0.53,
+   "logistic_regression": 0.5303,
+   "elo_pregame_only": 0.6001
+  },
+  {
+   "minute": 16,
+   "n": 11028,
+   "neural_net": 0.5236,
+   "logistic_regression": 0.5246,
+   "elo_pregame_only": 0.6041
+  },
+  {
+   "minute": 17,
+   "n": 11068,
+   "neural_net": 0.5227,
+   "logistic_regression": 0.5239,
+   "elo_pregame_only": 0.6008
+  },
+  {
+   "minute": 18,
+   "n": 10912,
+   "neural_net": 0.5105,
+   "logistic_regression": 0.5105,
+   "elo_pregame_only": 0.6027
+  },
+  {
+   "minute": 19,
+   "n": 11000,
+   "neural_net": 0.5008,
+   "logistic_regression": 0.5014,
+   "elo_pregame_only": 0.6021
+  },
+  {
+   "minute": 20,
+   "n": 11096,
+   "neural_net": 0.5018,
+   "logistic_regression": 0.5018,
+   "elo_pregame_only": 0.6031
+  },
+  {
+   "minute": 21,
+   "n": 11078,
+   "neural_net": 0.4894,
+   "logistic_regression": 0.4906,
+   "elo_pregame_only": 0.6023
+  },
+  {
+   "minute": 22,
+   "n": 10952,
+   "neural_net": 0.4816,
+   "logistic_regression": 0.4821,
+   "elo_pregame_only": 0.5986
+  },
+  {
+   "minute": 23,
+   "n": 12546,
+   "neural_net": 0.4776,
+   "logistic_regression": 0.478,
+   "elo_pregame_only": 0.6
+  },
+  {
+   "minute": 24,
+   "n": 10197,
+   "neural_net": 0.4752,
+   "logistic_regression": 0.4759,
+   "elo_pregame_only": 0.5987
+  },
+  {
+   "minute": 25,
+   "n": 10318,
+   "neural_net": 0.4616,
+   "logistic_regression": 0.4619,
+   "elo_pregame_only": 0.6017
+  },
+  {
+   "minute": 26,
+   "n": 10794,
+   "neural_net": 0.4487,
+   "logistic_regression": 0.4492,
+   "elo_pregame_only": 0.594
+  },
+  {
+   "minute": 27,
+   "n": 10842,
+   "neural_net": 0.4387,
+   "logistic_regression": 0.439,
+   "elo_pregame_only": 0.5962
+  },
+  {
+   "minute": 28,
+   "n": 11059,
+   "neural_net": 0.4402,
+   "logistic_regression": 0.4412,
+   "elo_pregame_only": 0.6019
+  },
+  {
+   "minute": 29,
+   "n": 10965,
+   "neural_net": 0.4154,
+   "logistic_regression": 0.4157,
+   "elo_pregame_only": 0.6007
+  },
+  {
+   "minute": 30,
+   "n": 10825,
+   "neural_net": 0.4087,
+   "logistic_regression": 0.4095,
+   "elo_pregame_only": 0.603
+  },
+  {
+   "minute": 31,
+   "n": 11057,
+   "neural_net": 0.3987,
+   "logistic_regression": 0.4003,
+   "elo_pregame_only": 0.6039
+  },
+  {
+   "minute": 32,
+   "n": 10947,
+   "neural_net": 0.4034,
+   "logistic_regression": 0.4058,
+   "elo_pregame_only": 0.6051
+  },
+  {
+   "minute": 33,
+   "n": 11096,
+   "neural_net": 0.3906,
+   "logistic_regression": 0.3925,
+   "elo_pregame_only": 0.6011
+  },
+  {
+   "minute": 34,
+   "n": 10870,
+   "neural_net": 0.3884,
+   "logistic_regression": 0.3905,
+   "elo_pregame_only": 0.6
+  },
+  {
+   "minute": 35,
+   "n": 12677,
+   "neural_net": 0.3648,
+   "logistic_regression": 0.3653,
+   "elo_pregame_only": 0.6014
+  },
+  {
+   "minute": 36,
+   "n": 10368,
+   "neural_net": 0.3548,
+   "logistic_regression": 0.3553,
+   "elo_pregame_only": 0.5995
+  },
+  {
+   "minute": 37,
+   "n": 10585,
+   "neural_net": 0.3439,
+   "logistic_regression": 0.3439,
+   "elo_pregame_only": 0.5989
+  },
+  {
+   "minute": 38,
+   "n": 10878,
+   "neural_net": 0.3286,
+   "logistic_regression": 0.328,
+   "elo_pregame_only": 0.6043
+  },
+  {
+   "minute": 39,
+   "n": 10698,
+   "neural_net": 0.3126,
+   "logistic_regression": 0.3132,
+   "elo_pregame_only": 0.5992
+  },
+  {
+   "minute": 40,
+   "n": 10629,
+   "neural_net": 0.2941,
+   "logistic_regression": 0.2951,
+   "elo_pregame_only": 0.601
+  },
+  {
+   "minute": 41,
+   "n": 10454,
+   "neural_net": 0.2716,
+   "logistic_regression": 0.2728,
+   "elo_pregame_only": 0.6007
+  },
+  {
+   "minute": 42,
+   "n": 10346,
+   "neural_net": 0.2587,
+   "logistic_regression": 0.2611,
+   "elo_pregame_only": 0.5997
+  },
+  {
+   "minute": 43,
+   "n": 10451,
+   "neural_net": 0.2414,
+   "logistic_regression": 0.2436,
+   "elo_pregame_only": 0.6041
+  },
+  {
+   "minute": 44,
+   "n": 10804,
+   "neural_net": 0.2128,
+   "logistic_regression": 0.214,
+   "elo_pregame_only": 0.6007
+  },
+  {
+   "minute": 45,
+   "n": 10144,
+   "neural_net": 0.1757,
+   "logistic_regression": 0.1773,
+   "elo_pregame_only": 0.602
+  },
+  {
+   "minute": 46,
+   "n": 11212,
+   "neural_net": 0.1451,
+   "logistic_regression": 0.1461,
+   "elo_pregame_only": 0.5955
+  },
+  {
+   "minute": 47,
+   "n": 15917,
+   "neural_net": 0.127,
+   "logistic_regression": 0.1339,
+   "elo_pregame_only": 0.6255
+  },
+  {
+   "minute": 48,
+   "n": 3246,
+   "neural_net": 0.4583,
+   "logistic_regression": 0.4489,
+   "elo_pregame_only": 0.6877
+  }
+ ],
+ "importance": [
+  {
+   "group": "score_margin",
+   "delta_log_loss": 0.5947
+  },
+  {
+   "group": "elo_spread",
+   "delta_log_loss": 0.07432
+  },
+  {
+   "group": "time_left",
+   "delta_log_loss": 0.07133
+  },
+  {
+   "group": "timeouts",
+   "delta_log_loss": 0.00243
+  },
+  {
+   "group": "overtime",
+   "delta_log_loss": 0.00011
+  },
+  {
+   "group": "possession",
+   "delta_log_loss": 5e-05
+  }
+ ],
+ "importance_crunch": [
+  {
+   "group": "score_margin",
+   "delta_log_loss": 0.95354
+  },
+  {
+   "group": "time_left",
+   "delta_log_loss": 0.03007
+  },
+  {
+   "group": "elo_spread",
+   "delta_log_loss": 0.00538
+  },
+  {
+   "group": "possession",
+   "delta_log_loss": 0.00068
+  },
+  {
+   "group": "timeouts",
+   "delta_log_loss": 7e-05
+  },
+  {
+   "group": "overtime",
+   "delta_log_loss": -0.00142
+  }
+ ],
+ "calls": [
+  {
+   "key": "tipoff",
+   "label": "Tip-off",
+   "games": 1315,
+   "neural_net": {
+    "accuracy": 0.6783,
+    "log_loss": 0.6032
+   },
+   "logistic_regression": {
+    "accuracy": 0.6821,
+    "log_loss": 0.6012
+   },
+   "elo_pregame_only": {
+    "accuracy": 0.6821,
+    "log_loss": 0.6009
+   }
+  },
+  {
+   "key": "q1",
+   "label": "End of Q1",
+   "games": 1315,
+   "neural_net": {
+    "accuracy": 0.7049,
+    "log_loss": 0.5567
+   },
+   "logistic_regression": {
+    "accuracy": 0.7087,
+    "log_loss": 0.5562
+   },
+   "elo_pregame_only": {
+    "accuracy": 0.6821,
+    "log_loss": 0.6009
+   }
+  },
+  {
+   "key": "half",
+   "label": "Halftime",
+   "games": 1315,
+   "neural_net": {
+    "accuracy": 0.7681,
+    "log_loss": 0.4727
+   },
+   "logistic_regression": {
+    "accuracy": 0.7688,
+    "log_loss": 0.4726
+   },
+   "elo_pregame_only": {
+    "accuracy": 0.6821,
+    "log_loss": 0.6009
+   }
+  },
+  {
+   "key": "q3",
+   "label": "End of Q3",
+   "games": 1315,
+   "neural_net": {
+    "accuracy": 0.8342,
+    "log_loss": 0.3617
+   },
+   "logistic_regression": {
+    "accuracy": 0.8327,
+    "log_loss": 0.363
+   },
+   "elo_pregame_only": {
+    "accuracy": 0.6821,
+    "log_loss": 0.6009
+   }
+  },
+  {
+   "key": "m5",
+   "label": "5:00 left",
+   "games": 1315,
+   "neural_net": {
+    "accuracy": 0.8844,
+    "log_loss": 0.2552
+   },
+   "logistic_regression": {
+    "accuracy": 0.8844,
+    "log_loss": 0.2571
+   },
+   "elo_pregame_only": {
+    "accuracy": 0.6821,
+    "log_loss": 0.6009
+   }
+  },
+  {
+   "key": "m1",
+   "label": "1:00 left",
+   "games": 1315,
+   "neural_net": {
+    "accuracy": 0.9354,
+    "log_loss": 0.1439
+   },
+   "logistic_regression": {
+    "accuracy": 0.9384,
+    "log_loss": 0.1443
+   },
+   "elo_pregame_only": {
+    "accuracy": 0.6821,
+    "log_loss": 0.6009
+   }
+  }
+ ],
+ "comebacks": [
+  {
+   "below": 0.5,
+   "games": 846,
+   "share": 0.6433
+  },
+  {
+   "below": 0.3,
+   "games": 478,
+   "share": 0.3635
+  },
+  {
+   "below": 0.2,
+   "games": 299,
+   "share": 0.2274
+  },
+  {
+   "below": 0.1,
+   "games": 127,
+   "share": 0.0966
+  },
+  {
+   "below": 0.05,
+   "games": 51,
+   "share": 0.0388
+  }
+ ],
+ "seasons": [
+  {
+   "season": "2019-20",
+   "role": "train",
+   "games": 865,
+   "log_loss": 0.4786,
+   "brier": 0.161,
+   "accuracy": 0.7544
+  },
+  {
+   "season": "2020-21",
+   "role": "train",
+   "games": 1171,
+   "log_loss": 0.463,
+   "brier": 0.1555,
+   "accuracy": 0.7627
+  },
+  {
+   "season": "2021-22",
+   "role": "train",
+   "games": 1323,
+   "log_loss": 0.4682,
+   "brier": 0.1574,
+   "accuracy": 0.7638
+  },
+  {
+   "season": "2022-23",
+   "role": "train",
+   "games": 1320,
+   "log_loss": 0.4866,
+   "brier": 0.1646,
+   "accuracy": 0.7467
+  },
+  {
+   "season": "2023-24",
+   "role": "train",
+   "games": 1318,
+   "log_loss": 0.445,
+   "brier": 0.1482,
+   "accuracy": 0.7779
+  },
+  {
+   "season": "2024-25",
+   "role": "validation",
+   "games": 1314,
+   "log_loss": 0.4541,
+   "brier": 0.1519,
+   "accuracy": 0.7695
+  },
+  {
+   "season": "2025-26",
+   "role": "test",
+   "games": 1315,
+   "log_loss": 0.4408,
+   "brier": 0.147,
+   "accuracy": 0.779
+  },
+  {
+   "season": "2026-27",
+   "role": "live",
+   "games": 27,
+   "log_loss": 0.4822,
+   "brier": 0.1668,
+   "accuracy": 0.7258
+  }
+ ],
+ "possession_value": {
+  "t_sec": [
+   720,
+   705,
+   690,
+   675,
+   660,
+   645,
+   630,
+   615,
+   600,
+   585,
+   570,
+   555,
+   540,
+   525,
+   510,
+   495,
+   480,
+   465,
+   450,
+   435,
+   420,
+   405,
+   390,
+   375,
+   360,
+   345,
+   330,
+   315,
+   300,
+   285,
+   270,
+   255,
+   240,
+   225,
+   210,
+   195,
+   180,
+   165,
+   150,
+   135,
+   120,
+   105,
+   90,
+   75,
+   60,
+   45,
+   30,
+   15,
+   0
+  ],
+  "pp": [
+   0.014,
+   0.0141,
+   0.0143,
+   0.0144,
+   0.0146,
+   0.0148,
+   0.015,
+   0.0151,
+   0.0142,
+   0.0144,
+   0.0146,
+   0.0148,
+   0.015,
+   0.0153,
+   0.0155,
+   0.0158,
+   0.016,
+   0.0163,
+   0.0167,
+   0.0169,
+   0.0173,
+   0.0176,
+   0.018,
+   0.0183,
+   0.0187,
+   0.0191,
+   0.0196,
+   0.0201,
+   0.0206,
+   0.0212,
+   0.0218,
+   0.0224,
+   0.0218,
+   0.0226,
+   0.0235,
+   0.0243,
+   0.0255,
+   0.0266,
+   0.028,
+   0.0294,
+   0.0311,
+   0.033,
+   0.0352,
+   0.0379,
+   0.0405,
+   0.0446,
+   0.0496,
+   0.0562,
+   0.0647
+  ]
+ },
+ "prior_fade": {
+  "t_sec": [
+   2880,
+   2820,
+   2760,
+   2700,
+   2640,
+   2580,
+   2520,
+   2460,
+   2400,
+   2340,
+   2280,
+   2220,
+   2160,
+   2100,
+   2040,
+   1980,
+   1920,
+   1860,
+   1800,
+   1740,
+   1680,
+   1620,
+   1560,
+   1500,
+   1440,
+   1380,
+   1320,
+   1260,
+   1200,
+   1140,
+   1080,
+   1020,
+   960,
+   900,
+   840,
+   780,
+   720,
+   660,
+   600,
+   540,
+   480,
+   420,
+   360,
+   300,
+   240,
+   180,
+   120,
+   60,
+   0
+  ],
+  "curves": {
+   "+3": [
+    0.5981,
+    0.5993,
+    0.6006,
+    0.6019,
+    0.6032,
+    0.6045,
+    0.5831,
+    0.584,
+    0.5849,
+    0.5858,
+    0.5868,
+    0.5878,
+    0.5888,
+    0.5899,
+    0.591,
+    0.5921,
+    0.5933,
+    0.5727,
+    0.5735,
+    0.5742,
+    0.575,
+    0.5759,
+    0.5768,
+    0.5777,
+    0.5787,
+    0.5797,
+    0.5809,
+    0.582,
+    0.563,
+    0.5637,
+    0.5644,
+    0.5652,
+    0.5661,
+    0.5671,
+    0.5682,
+    0.5694,
+    0.5708,
+    0.5723,
+    0.5551,
+    0.556,
+    0.5572,
+    0.5586,
+    0.5605,
+    0.5628,
+    0.5492,
+    0.5515,
+    0.5556,
+    0.5492,
+    0.5644
+   ],
+   "+6": [
+    0.7022,
+    0.7022,
+    0.7022,
+    0.7022,
+    0.7023,
+    0.7024,
+    0.6831,
+    0.6828,
+    0.6825,
+    0.6822,
+    0.6819,
+    0.6817,
+    0.6815,
+    0.6813,
+    0.6812,
+    0.6811,
+    0.681,
+    0.6602,
+    0.6597,
+    0.6591,
+    0.6586,
+    0.6581,
+    0.6577,
+    0.6573,
+    0.657,
+    0.6567,
+    0.6564,
+    0.6562,
+    0.6346,
+    0.6338,
+    0.6332,
+    0.6326,
+    0.632,
+    0.6316,
+    0.6312,
+    0.631,
+    0.6309,
+    0.6309,
+    0.6095,
+    0.6089,
+    0.6086,
+    0.6085,
+    0.6088,
+    0.6096,
+    0.591,
+    0.5917,
+    0.5939,
+    0.5816,
+    0.5911
+   ],
+   "+9": [
+    0.7806,
+    0.7796,
+    0.7787,
+    0.7779,
+    0.7771,
+    0.7763,
+    0.7604,
+    0.7592,
+    0.7581,
+    0.757,
+    0.7559,
+    0.7549,
+    0.7539,
+    0.7529,
+    0.752,
+    0.7511,
+    0.7503,
+    0.7318,
+    0.7304,
+    0.7291,
+    0.7277,
+    0.7265,
+    0.7252,
+    0.724,
+    0.7228,
+    0.7217,
+    0.7206,
+    0.7196,
+    0.698,
+    0.6964,
+    0.6948,
+    0.6932,
+    0.6918,
+    0.6904,
+    0.689,
+    0.6878,
+    0.6868,
+    0.6859,
+    0.6622,
+    0.6606,
+    0.6593,
+    0.6582,
+    0.6575,
+    0.6573,
+    0.6353,
+    0.635,
+    0.6361,
+    0.6194,
+    0.6249
+   ]
+  }
+ },
+ "home_by_season": [
+  {
+   "season": "2014-15",
+   "home_win": 0.5759,
+   "games": 1311
+  },
+  {
+   "season": "2015-16",
+   "home_win": 0.5942,
+   "games": 1316
+  },
+  {
+   "season": "2016-17",
+   "home_win": 0.5829,
+   "games": 1309
+  },
+  {
+   "season": "2017-18",
+   "home_win": 0.5869,
+   "games": 1312
+  },
+  {
+   "season": "2018-19",
+   "home_win": 0.5907,
+   "games": 1312
+  },
+  {
+   "season": "2019-20",
+   "home_win": 0.5468,
+   "games": 1143
+  },
+  {
+   "season": "2020-21",
+   "home_win": 0.5465,
+   "games": 1171
+  },
+  {
+   "season": "2021-22",
+   "home_win": 0.548,
+   "games": 1323
+  },
+  {
+   "season": "2022-23",
+   "home_win": 0.5811,
+   "games": 1320
+  },
+  {
+   "season": "2023-24",
+   "home_win": 0.547,
+   "games": 1318
+  },
+  {
+   "season": "2024-25",
+   "home_win": 0.546,
+   "games": 1315
+  },
+  {
+   "season": "2025-26",
+   "home_win": 0.5547,
+   "games": 1316
+  }
+ ],
+ "elo": {
+  "home_adv": 45.0,
+  "elo_per_point": 28.0
+ },
+ "typical_timeouts": [
+  7.0,
+  7.0,
+  7.0,
+  7.0,
+  7.0,
+  7.0,
+  6.0,
+  6.0,
+  6.0,
+  6.0,
+  6.0,
+  6.0,
+  6.0,
+  6.0,
+  6.0,
+  6.0,
+  6.0,
+  5.0,
+  5.0,
+  5.0,
+  5.0,
+  5.0,
+  5.0,
+  5.0,
+  5.0,
+  5.0,
+  5.0,
+  5.0,
+  4.0,
+  4.0,
+  4.0,
+  4.0,
+  4.0,
+  4.0,
+  4.0,
+  4.0,
+  4.0,
+  4.0,
+  3.0,
+  3.0,
+  3.0,
+  3.0,
+  3.0,
+  3.0,
+  2.0,
+  2.0,
+  2.0,
+  1.0
+ ]
+}

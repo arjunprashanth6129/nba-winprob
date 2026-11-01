@@ -1,0 +1,5 @@
+# Data pipeline + training, on top of the serving requirements.
+-r requirements.txt
+pyarrow>=17
+torch>=2.5
+scikit-learn>=1.5
