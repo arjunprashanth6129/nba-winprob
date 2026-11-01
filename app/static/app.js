@@ -500,6 +500,9 @@
     }
   }
 
+  // The game-flow tiles compare against the season average once it has loaded.
+  document.addEventListener("seasonloaded", () => S.header && renderFlow(S.header, S.points));
+
   // ------------------------------------------------------------ boot + routing
   function updateHash() {
     const p = new URLSearchParams();

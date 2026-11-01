@@ -12,7 +12,7 @@
   function load() {
     if (!loading) {
       loading = Promise.all([getJSON("/api/season"), getJSON("/api/evaluation").catch(() => null), getJSON("/api/ratings").catch(() => null)])
-        .then(([r, ev, ratings]) => { report = r; render(r, ev, ratings); })
+        .then(([r, ev, ratings]) => { report = r; render(r, ev, ratings); document.dispatchEvent(new Event("seasonloaded")); })
         .catch((e) => { $("rec-loading").textContent = `Couldn't load the season record (${e.message}).`; loading = null; });
     }
     return loading;
